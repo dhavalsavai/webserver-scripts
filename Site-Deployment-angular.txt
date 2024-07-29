@@ -1,0 +1,38 @@
+server {
+    listen 443 ssl;
+    server_name www.example.com;
+
+    ssl_certificate /home/ubuntu/cert/techin.crt;
+    ssl_certificate_key /home/ubuntu/cert/techin.key;
+    ssl_trusted_certificate /home/ubuntu/cert/certbundle.crt;
+
+    root /home/ubuntu/deployment/dev;
+    index index.html index.htm;
+
+    error_log /var/log/nginx/dev_error.log;
+    access_log /var/log/nginx/dev_access.log;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+    location ~ /\.git {
+        deny all;
+    }
+
+    location ~ /\.svn {
+        deny all;
+    }
+
+    location ~ /\.hg {
+        deny all;
+    }
+
+    location ~ /\.bzr {
+        deny all;
+    }
+}
